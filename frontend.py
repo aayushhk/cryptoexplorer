@@ -1,5 +1,4 @@
 import streamlit as st
-import requests 
 from firecrawl import FirecrawlApp
 from pydantic import BaseModel, Field
 
@@ -7,7 +6,7 @@ from pydantic import BaseModel, Field
 
 st.set_page_config("TxnTracker","🤖",layout="wide")
 # Initialize the FirecrawlApp with your API key
-def scrape(tx_hash):
+def scrape(bc,tx_hash):
     print(tx_hash)
     app = FirecrawlApp(api_key=st.secrets("API_KEY"))
 
@@ -27,8 +26,14 @@ def scrape(tx_hash):
         transaction_input:str
         transaction_output:str
         transaction_contract_address:str
+    if bc=="eth":    
+        bc=f'https://etherscan.com'
+    elif bc=="bnb":
+        bc=f'https://bscscan.com'
 
-    data = app.scrape_url(tx_hash, {
+    etherscan_link = f'{bc}/tx/{tx_hash}'
+
+    data = app.scrape_url(etherscan_link, {
         'formats': ['extract'],
         'extract': {
             'schema': ExtractSchema.model_json_schema(),
@@ -53,19 +58,23 @@ def main():
     st.sidebar.title("Actions")
     with st.sidebar:
         txn_id=st.text_area("Input Transaction hash")
+        bc=st.radio("Choose Blockchain",["eth","bnb"])
         
         search=st.button("Get details")
         if search:
-             st.query_params["xurl"]=f"https://etherscan.io/tx/{txn_id}"
+             st.query_params["bc"]=bc
+             st.query_params["xurl"]=f"{txn_id}"
         st.divider()
         st.link_button("🤖 Add bot to your telegram",url="https://web.telegram.org/k/#@btctransactiontrackerbot",type="primary")
         st.link_button("List watched wallets",f"https://t.me/btctransactiontrackerbot?text=/list")
         
     st.query_params.setdefault("xurl", None)
+    st.query_params.setdefault("bc", None)
     if st.query_params.values() is not None:
         tx_hash = st.query_params["xurl"]
+        bc = st.query_params["bc"]
         try:
-            result=scrape(tx_hash)
+            result=scrape(bc,tx_hash)
         except Exception as e:
             st.info(f"Error occurred: Enter trxn ID to continue.")
             return
