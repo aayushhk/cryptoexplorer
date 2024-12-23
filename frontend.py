@@ -9,7 +9,7 @@ st.set_page_config("TxnTracker","🤖",layout="wide")
 def scrape(bc,tx_hash):
     print(tx_hash)
     print(bc)
-    app = FirecrawlApp(api_key='fc-01fd4ed1d7b1437fac0a0ebd51a3141b')
+    app = FirecrawlApp(api_key=st.secrets("API_KEY"))
 
     
         
@@ -28,7 +28,7 @@ def scrape(bc,tx_hash):
         transaction_output:str
         transaction_contract_address:str
     if bc=="eth":    
-        bc=f'https://etherscan.com'
+        bc=f'https://etherscan.io'
     elif bc=="bnb":
         bc=f'https://bscscan.com'
     
