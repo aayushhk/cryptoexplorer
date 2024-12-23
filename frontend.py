@@ -78,8 +78,8 @@ def main():
         try:
             result=scrape(bc,tx_hash)
         except Exception as e:
-            st.info(f"Error occurred: Enter trxn ID to continue.")
-            return
+            st.info(f"Error occurred: Enter trxn ID to continue.{e}")
+            return e
         with st.container(border=True):
             st.subheader("Transaction Hash")
             st.write(result['extract']['transaction_hash'])
