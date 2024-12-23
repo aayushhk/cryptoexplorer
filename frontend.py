@@ -9,7 +9,7 @@ st.set_page_config("TxnTracker","🤖",layout="wide")
 # Initialize the FirecrawlApp with your API key
 def scrape(tx_hash):
     print(tx_hash)
-    app = FirecrawlApp(api_key='fc-01fd4ed1d7b1437fac0a0ebd51a3141b')
+    app = FirecrawlApp(api_key=st.secrets("API_KEY")
 
     
         
