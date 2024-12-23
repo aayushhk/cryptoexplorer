@@ -9,7 +9,7 @@ st.set_page_config("TxnTracker","🤖",layout="wide")
 def scrape(bc,tx_hash):
     print(tx_hash)
     print(bc)
-    app = FirecrawlApp(api_key=st.secrets("API_KEY"))
+    app = FirecrawlApp(api_key=st.secrets["API_KEY"])
 
     
         
