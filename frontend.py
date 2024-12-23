@@ -8,7 +8,8 @@ st.set_page_config("TxnTracker","🤖",layout="wide")
 # Initialize the FirecrawlApp with your API key
 def scrape(bc,tx_hash):
     print(tx_hash)
-    app = FirecrawlApp(api_key=st.secrets("API_KEY"))
+    print(bc)
+    app = FirecrawlApp(api_key='fc-01fd4ed1d7b1437fac0a0ebd51a3141b')
 
     
         
@@ -30,8 +31,9 @@ def scrape(bc,tx_hash):
         bc=f'https://etherscan.com'
     elif bc=="bnb":
         bc=f'https://bscscan.com'
-
+    
     etherscan_link = f'{bc}/tx/{tx_hash}'
+    print(etherscan_link)
 
     data = app.scrape_url(etherscan_link, {
         'formats': ['extract'],
@@ -69,7 +71,7 @@ def main():
         st.link_button("List watched wallets",f"https://t.me/btctransactiontrackerbot?text=/list")
         
     st.query_params.setdefault("xurl", None)
-    st.query_params.setdefault("bc", None)
+    st.query_params.setdefault("bc", "eth")
     if st.query_params.values() is not None:
         tx_hash = st.query_params["xurl"]
         bc = st.query_params["bc"]
@@ -109,7 +111,8 @@ def main():
          txn_id=st.text_area("Input Transaction hash")
          search=st.button("Get details")
          if search:
-             st.query_params["xurl"]=f"https://etherscan.io/tx/{txn_id}"
+             st.query_params["xurl"]=f"{txn_id}"
+             st.query_params["bc"]=f"{bc}"
              
     
 if __name__ == "__main__":  
