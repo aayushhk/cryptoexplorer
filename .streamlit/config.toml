@@ -11,5 +11,5 @@ showSidebarNavigation = false
 port=8502 # change port number. By default streamlit uses 8501 port
 headless=true # This will eliminate automatically open browser
 [browser] # This ip and port will show in command prompt
-serverAddress = "abc.com" # Put your Local IP or Domain Name
+serverAddress = "52.207.67.60" # Put your Local IP or Domain Name
 serverPort = 8502
