@@ -45,8 +45,8 @@ def scrape(bc,tx_hash):
     return data
     
 
-TELEGRAM_BOT_TOKEN = '7900444916:AAEI2TZxgioYgjLljKj7sVuzqYkEqxhc7uw'  
-TELEGRAM_CHAT_ID = '1081203414'  
+TELEGRAM_BOT_TOKEN = '7900444916:AAEI2' 
+TELEGRAM_CHAT_ID = '1081214'  
 
 
 def get_list():
